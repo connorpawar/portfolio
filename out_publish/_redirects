@@ -1,0 +1,11 @@
+# Next-on-Netlify Redirects
+/_next/data/13Ih8KxV0_rHUefQX-p6W/blog.json  /.netlify/functions/next_blog  200!  Cookie=__prerender_bypass,__next_preview_data
+/_next/data/13Ih8KxV0_rHUefQX-p6W/blog/post/construction-test.json  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/_next/data/13Ih8KxV0_rHUefQX-p6W/blog/post/link-test.json  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/_next/data/13Ih8KxV0_rHUefQX-p6W/blog/post/rando_test.json  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/_next/data/13Ih8KxV0_rHUefQX-p6W/blog/post/test-4-entry.json  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/blog  /.netlify/functions/next_blog  200!  Cookie=__prerender_bypass,__next_preview_data
+/blog/post/construction-test  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/blog/post/link-test  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/blog/post/rando_test  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data
+/blog/post/test-4-entry  /.netlify/functions/next_blog_post_urlSlug  200!  Cookie=__prerender_bypass,__next_preview_data

@@ -1,0 +1,11 @@
+type Reactions {
+  id: ID @unique
+  urlSlug: String! @unique
+  heart: Int
+  thumb: Int
+}
+
+type Query {
+  allReactions: [Reactions!]
+  reactionsByUrlSlug(urlSlug: String!): [Reactions!]
+}
