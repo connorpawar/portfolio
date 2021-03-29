@@ -47,18 +47,18 @@ export default function Hero() {
     <Flex
       align="center"
       direction="column"
-      minH="60vh"
+      minH="50vh"
       px={8}
       mb={16}
     >
       <Box mb="5">
         <Img
-		  width="600px"
+		  width="500px"
           src="/hero-image-cutout.png"
         />
         <Box
 		  flexGrow={1}
-		  ml="24%"
+		  ml={{base: "10%", sm: "18.5%"}}
 		  mr="auto"
         >
           <ScaleFade initialScale={0.9} in={true}>
