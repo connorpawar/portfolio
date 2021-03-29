@@ -23,8 +23,9 @@ const NavMenuItems = ({ displayText, linkTo }: NavItemType) => {
 	  <Button
 		variant="link"
 		color={textColor}
-		ml={10}
-		display="inline-block"
+		ml={{base: 0, sm: 10}}
+		display={{base: "block", sm: "inline-block"}}
+		mb={{base: "10", sm:"0"}}
 		fontSize="20px"
 		onClick={linkTo}
 		_hover={{ bg: hoverColor }}
@@ -47,18 +48,18 @@ export default function Hero() {
     <Flex
       align="center"
       direction="column"
-      minH="50vh"
+      minH="40vh"
       px={8}
-      mb={16}
+      mb={{base: 0, sm: 16}}
     >
       <Box mb="5">
         <Img
-		  width="500px"
+		  width="600px"
           src="/hero-image-cutout.png"
         />
         <Box
 		  flexGrow={1}
-		  ml={{base: "10%", sm: "18.5%"}}
+		  ml={{base: "40%", sm: "24%"}}
 		  mr="auto"
         >
           <ScaleFade initialScale={0.9} in={true}>
