@@ -1,0 +1,12 @@
+[
+	{
+		"image": "devscribbles.png",
+		"imageDesc": "open graph image for devscribbles",
+		"url": "https://devscribbles.com",
+		"title": "DevScribbles",
+		"desc": "A SAAS for creating shareable and easily editable markdown websites. Create a small website in minutes!",
+		"badgeText": "In Progress",
+		"badgeColor": "green",
+		"year": "2021"
+	}
+]
