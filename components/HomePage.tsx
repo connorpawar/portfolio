@@ -11,7 +11,7 @@ export default function HomePage() {
         <title>Home - Connor Pawar</title>
         <link
           rel="icon"
-          href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/209/fire_1f525.png"
+          href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/keyboard_2328-fe0f.png"
         />
         <meta
           name="description"
