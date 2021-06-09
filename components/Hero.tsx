@@ -69,7 +69,7 @@ export default function Hero() {
             />
             <NavMenuItems
               displayText="Blog"
-              linkTo={handleNavAwayClick("https://devscribles.com/blog")}
+              linkTo={handleNavAwayClick("https://devscribbles.com/blog")}
             />
             <NavMenuItems
               displayText="About"
