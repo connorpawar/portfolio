@@ -52,8 +52,8 @@ export default function About() {
           <SlideFade in={animate}>
             I'm a professional fullstack developer with a specialization in{" "}
             <Link url="https://reactjs.org/">React</Link>. I also work a lot
-            with <Link url="https://dotnet.microsoft.com/en-us/">C# .NET</Link>{" "}
-            and server side JS (I plan on learning some Deno soon!), so I have
+            with <Link url="https://dotnet.microsoft.com/en-us/">.NET</Link> and
+            server side JS (I plan on learning some Deno soon!), so I have
             experience with all kinds of web development. This site is where I{" "}
             <Link url="/projects">experiment</Link> with new ideas/technologies
             and also <Link url="/blog">write</Link> about them from
