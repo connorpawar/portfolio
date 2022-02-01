@@ -10,10 +10,10 @@ const BackButton = () => {
     <IconButton
       color="blue.600"
       aria-label="Go Home"
-	  size="lg"
-	  width="100px"
-	  m="5px"
-      onClick={handleNavClick(router, "/")}
+      size="lg"
+      width="100px"
+      m="5px"
+      onClick={router.back}
       icon={<ArrowLeftIcon />}
     />
   );
