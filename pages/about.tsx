@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Heading, Text, Img, useColorMode, SlideFade } from "@chakra-ui/react";
 import BackButton from "@components/BackButton";
 import Link from "@components/textStlying/Link";
+import { Darkmode } from "@components/DarkMode";
 
 export default function About() {
   const { colorMode } = useColorMode();

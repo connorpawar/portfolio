@@ -1,10 +1,11 @@
-import React from 'react';
-import Head from 'next/head';
-import { useColorMode } from '@chakra-ui/react';
-import Hero from './Hero';
+import React from "react";
+import Head from "next/head";
+import Hero from "./Hero";
+import { Darkmode } from "./DarkMode";
+import { useColorModeValue } from "@chakra-ui/react";
 
 export default function HomePage() {
-
+  const backgroundColor = useColorModeValue("white", "#152427");
   return (
     <>
       <Head>
@@ -20,11 +21,11 @@ export default function HomePage() {
       </Head>
       <main
         style={{
-          display: 'inline-block',
-		  background: '#152427',
-		  backgroundRepeat: 'no-repeat',
-		  backgroundPosition: 'center',
-		  backgroundSize: 'cover',
+          display: "inline-block",
+          background: backgroundColor,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
         }}
       >
         <Hero />

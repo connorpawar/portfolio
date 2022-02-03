@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
-import { useColorModeValue } from "@chakra-ui/react";
 
 const StyledLink = styled.a`
-  font-size: 1em;
   text-decoration: none;
-  color: #121314;
   position: relative;
   z-index: 1;
 
@@ -25,8 +22,12 @@ const StyledLink = styled.a`
   }
 `;
 
-const Link = ({ children, url }) => {
-  return <StyledLink href={url}>{children}</StyledLink>;
+const Link = ({ children, url, fontSize = "1em", margin = "0px" }) => {
+  return (
+    <StyledLink href={url} style={{ fontSize: fontSize, margin: margin }}>
+      {children}
+    </StyledLink>
+  );
 };
 
 export default Link;
