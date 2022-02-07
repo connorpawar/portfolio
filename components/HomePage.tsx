@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import Hero from "./Hero";
-import { Darkmode } from "./DarkMode";
 import { useColorModeValue } from "@chakra-ui/react";
 
 export default function HomePage() {
@@ -23,9 +22,6 @@ export default function HomePage() {
         style={{
           display: "inline-block",
           background: backgroundColor,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
         }}
       >
         <Hero />
