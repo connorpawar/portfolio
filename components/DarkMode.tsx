@@ -13,10 +13,15 @@ export const Darkmode = () => {
       aria-label="darkmode toggle"
       label="darkmode"
       variant="solid"
-      onClick={toggleColorMode}
+      onClick={() => {
+        console.log("clicked dk mode");
+        toggleColorMode();
+      }}
       marginLeft={marginLeft}
       top="1em"
       position="absolute"
+      zIndex="1000"
+      size="lg"
     >
       {colorMode === "light" ? <MoonIcon /> : <StarIcon />}
     </Button>

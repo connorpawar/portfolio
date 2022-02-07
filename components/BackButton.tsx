@@ -15,6 +15,8 @@ const BackButton = () => {
       icon={<ArrowLeftIcon />}
       top="1em"
       position="absolute"
+      marginLeft="1em"
+      zIndex="1000"
     />
   );
 };

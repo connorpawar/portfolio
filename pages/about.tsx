@@ -35,6 +35,7 @@ export default function About() {
               ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
               : `url('/tile-dark.png')`,
           backgroundRepeat: "repeat",
+          marginTop: "40px",
         }}
       >
         <Heading margin="20px">Wanna learn a little about me?</Heading>
