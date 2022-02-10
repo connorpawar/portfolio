@@ -1,13 +1,12 @@
 import React, { useEffect, useState, FC } from "react";
 import Head from "next/head";
-import { Heading, Text, Img, useColorMode, SlideFade } from "@chakra-ui/react";
-import { Darkmode, BackButton } from "@components/Layout";
+import { Heading, Text, Img, SlideFade, useColorModeValue } from "@chakra-ui/react";
+import { BackButton } from "@components/Layout";
 import { Link } from "@components/TextStlying";
 
 export const About: FC = () => {
-  const { colorMode } = useColorMode();
-
   const [animate, setAnimate] = useState(false);
+  const backgroundColor = useColorModeValue("white", "#152427");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,10 +28,7 @@ export const About: FC = () => {
       <main
         style={{
           display: "flex",
-          background:
-            colorMode === "light"
-              ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
-              : `url('/tile-dark.png')`,
+          background: backgroundColor,
           backgroundRepeat: "repeat",
           marginTop: "40px",
         }}

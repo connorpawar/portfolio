@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Fuse from "fuse.js";
-import { Box, useColorMode } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { BlogEntries, PostPreviews } from "@components/Blog";
 import { SEO } from "@components/SEO";
 import { BackButton, SearchBar } from "@components/Layout";
@@ -9,7 +9,7 @@ import { BackButton, SearchBar } from "@components/Layout";
 export const BlogHome = ({ posts }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState<any>(posts);
-  const { colorMode } = useColorMode();
+  const backgroundColor = useColorModeValue("white", "#152427");
 
   const options = {
     keys: ["title", "author.firstName"],
@@ -38,10 +38,7 @@ export const BlogHome = ({ posts }) => {
       <main
         style={{
           display: "flex",
-          background:
-            colorMode === "light"
-              ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
-              : `url('/tile-dark.png')`,
+          background: backgroundColor,
           backgroundRepeat: "repeat",
         }}
       >

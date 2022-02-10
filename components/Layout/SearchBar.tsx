@@ -32,7 +32,7 @@ export const SearchBar = ({
   };
 
   return (
-    <Box {...rest}>
+    <Box {...rest} background={linkBg}>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
