@@ -13,7 +13,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
-const SearchBar = ({
+export const SearchBar = ({
   searchTerm,
   setSearchTerm,
   filteredPosts,
@@ -84,5 +84,3 @@ const SearchBar = ({
     </Box>
   );
 };
-
-export default SearchBar;

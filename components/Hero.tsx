@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   Box,
   Flex,
@@ -7,9 +7,9 @@ import {
   Spacer,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Link from "./textStlying/Link";
+import { Link } from "./TextStlying";
 
-export default function Hero() {
+export const Hero: FC = () => {
   const imgFilter = useColorModeValue("invert(1)", "invert(0)");
 
   return (

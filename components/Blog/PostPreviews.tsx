@@ -1,13 +1,12 @@
 import React from "react";
-import { Text, Stack, ScaleFade, Heading } from "@chakra-ui/react";
+import { Stack, ScaleFade, Heading } from "@chakra-ui/react";
 import { NewPostCard } from "./NewPostCard";
 
-export default function PostPreviews({ posts }) {
+export const PostPreviews = ({ posts }) => {
   return (
     <>
       <Heading as="h2" size="xl" m="10px">
-        {" "}
-        Most Recent Posts{" "}
+        {" "}Most Recent Posts{" "}
       </Heading>
       <Stack direction={["column", "column", "row"]} spacing={4}>
         {posts.map((p) => {

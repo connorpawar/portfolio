@@ -1,13 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 import { Heading, useColorMode, ScaleFade, Stack } from "@chakra-ui/react";
-import BackButton from "@components/BackButton";
 import { DisplayCard } from "@components/DisplayCard";
+import { BackButton } from "@components/Layout";
 
 import projects from "../configs/projects.json";
-import { Darkmode } from "@components/DarkMode";
 
-export default function Projects() {
+const Projects: FC = () => {
   const { colorMode } = useColorMode();
 
   return (
@@ -58,3 +57,5 @@ export default function Projects() {
     </>
   );
 }
+
+export default Projects;

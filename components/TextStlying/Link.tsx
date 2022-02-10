@@ -22,12 +22,10 @@ const StyledLink = styled.a`
   }
 `;
 
-const Link = ({ children, url, fontSize = "1em", margin = "0px" }) => {
+export const Link = ({ children, url, fontSize = "1em", margin = "0px" }) => {
   return (
     <StyledLink href={url} style={{ fontSize: fontSize, margin: margin }}>
       {children}
     </StyledLink>
   );
 };
-
-export default Link;

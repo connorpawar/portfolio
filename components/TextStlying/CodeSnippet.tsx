@@ -16,8 +16,6 @@ const CodeRenderer = ({ value, language }) => {
   );
 };
 
-const CodeSnippet = ({ markdown }) => {
+export const CodeSnippet = ({ markdown }) => {
   return <ReactMarkdown source={markdown} renderers={{ code: CodeRenderer }} />;
 };
-
-export default CodeSnippet;

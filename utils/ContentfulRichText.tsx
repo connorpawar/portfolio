@@ -3,8 +3,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import React from "react";
 import { Text, Heading } from "@chakra-ui/react";
 
-import BlockQuote from "../components/textStlying/BlockQuote";
-import CodeSnippet from "@components/textStlying/CodeSnippet";
+import { BlockQuote, CodeSnippet } from "../components/TextStlying";
 
 const richTextOptions = {
   renderNode: {

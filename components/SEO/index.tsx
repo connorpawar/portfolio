@@ -5,7 +5,7 @@ import siteConfig from 'configs/site-config';
 
 export interface SEOProps extends Pick<NextSeoProps, 'title' | 'description'> {}
 
-const SEO = ({ title, description }: SEOProps) => (
+export const SEO = ({ title, description }: SEOProps) => (
   <NextSeo
     title={title}
     description={description}
@@ -13,5 +13,3 @@ const SEO = ({ title, description }: SEOProps) => (
     titleTemplate={siteConfig.seo.titleTemplate}
   />
 );
-
-export default SEO;

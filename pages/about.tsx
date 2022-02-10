@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import Head from "next/head";
 import { Heading, Text, Img, useColorMode, SlideFade } from "@chakra-ui/react";
-import BackButton from "@components/BackButton";
-import Link from "@components/textStlying/Link";
-import { Darkmode } from "@components/DarkMode";
+import { Darkmode, BackButton } from "@components/Layout";
+import { Link } from "@components/TextStlying";
 
-export default function About() {
+export const About: FC = () => {
   const { colorMode } = useColorMode();
 
   const [animate, setAnimate] = useState(false);
@@ -67,3 +66,5 @@ export default function About() {
     </>
   );
 }
+
+export default About;

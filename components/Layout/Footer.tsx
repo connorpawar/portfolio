@@ -5,9 +5,19 @@ import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import twitter from "react-useanimations/lib/twitter";
 import { handleNavAwayClick } from "@utils/helpers";
-import { useColorModeValue } from "@chakra-ui/react";
 
-const Footer = () => {
+const StyledFooter = styled.footer`
+  width: 100%;
+  height: 100px;
+  margin-top: auto;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  background: #152427;
+`;
+
+export const Footer = () => {
   return (
     <StyledFooter>
       <UseAnimations
@@ -34,16 +44,3 @@ const Footer = () => {
     </StyledFooter>
   );
 };
-
-const StyledFooter = styled.footer`
-  width: 100%;
-  height: 100px;
-  margin-top: auto;
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  background: #152427;
-`;
-
-export default Footer;

@@ -28,18 +28,13 @@ const Quote = styled.blockquote`
   }
 `;
 
-const BlockQuote = ({ quoteText, quoter }) => {
+export const BlockQuote = ({ quoteText, quoter }) => {
   const bg = useColorModeValue("#EDEDED", "#282828");
   const txtColor = useColorModeValue("#555555", "#FFFFFF");
 
   return (
     <Quote style={{ background: bg, color: txtColor }}>
       {quoteText}
-      {/* <footer>
-        <cite> - {quoter}</cite>
-      </footer> */}
     </Quote>
   );
 };
-
-export default BlockQuote;
