@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { Heading, useColorMode, ScaleFade, Stack } from "@chakra-ui/react";
+import { Heading, ScaleFade, Stack, useColorModeValue } from "@chakra-ui/react";
 import { DisplayCard } from "@components/DisplayCard";
 import { BackButton } from "@components/Layout";
 
 import projects from "../configs/projects.json";
 
 const Projects: FC = () => {
-  const { colorMode } = useColorMode();
+  const backgroundColor = useColorModeValue("white", "#152427");
 
   return (
     <>
@@ -22,10 +22,7 @@ const Projects: FC = () => {
       <main
         style={{
           display: "flex",
-          background:
-            colorMode === "light"
-              ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
-              : `url('/tile-dark.png')`,
+          background: backgroundColor,
           backgroundRepeat: "repeat",
         }}
       >

@@ -13,10 +13,7 @@ export const Darkmode = () => {
       aria-label="darkmode toggle"
       label="darkmode"
       variant="solid"
-      onClick={() => {
-        console.log("clicked dk mode");
-        toggleColorMode();
-      }}
+      onClick={toggleColorMode}
       marginLeft={marginLeft}
       top="1em"
       position="absolute"

@@ -1,4 +1,4 @@
-import { Heading, Container, Tag, Text, useColorMode } from "@chakra-ui/react";
+import { Heading, Container, Tag, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { fetchEntries } from "@utils/contentfulPosts";
 import ContentfulRichText from "@utils/ContentfulRichText";
 import { SEO } from "@components/SEO";
@@ -9,7 +9,7 @@ const Post = ({ post }) => {
   //   const router = useRouter();
   //   let resp = api.getReactions(post.urlSlug).then((ans) => console.log(ans));
 
-  const { colorMode } = useColorMode();
+  const backgroundColor = useColorModeValue("white", "#152427");
 
   return (
     <>
@@ -18,10 +18,7 @@ const Post = ({ post }) => {
       <main
         style={{
           display: "flex",
-          background:
-            colorMode === "light"
-              ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
-              : `url('/tile-dark.png')`,
+          background: backgroundColor,
           backgroundRepeat: "repeat",
         }}
       >
