@@ -1,6 +1,6 @@
 import React from "react";
-import { fetchEntries } from "@utils/contentfulPosts";
-import { BlogHome } from "@components/Blog";
+import { fetchEntries } from "../../utils/contentfulPosts";
+import { BlogHome } from "@components/Blog/BlogHome";
 
 const Blog = ({ posts }) => <BlogHome posts={posts} />;
 

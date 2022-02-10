@@ -6,11 +6,10 @@ import {
   ColorModeScript,
 } from "@chakra-ui/react";
 import { AppProps } from "next/app";
-import Footer from "@components/Footer";
 import "prismjs";
 import { DefaultSeo } from "next-seo";
 import siteConfig from "configs/site-config";
-import { Darkmode } from "@components/DarkMode";
+import { Darkmode, Footer } from "@components/Layout";
 
 function App({ Component, pageProps }: AppProps): React.ReactNode {
   const theme = extendTheme({

@@ -52,7 +52,6 @@ export const NewPostCard = ({
             <div>{readingTime} minutes</div>
           </Box>
         </Box>
-
         <Heading
           mt="1"
           fontWeight="semibold"
@@ -63,7 +62,6 @@ export const NewPostCard = ({
         >
           {title}
         </Heading>
-
         <Box>{desc}</Box>
       </Box>
     </Box>

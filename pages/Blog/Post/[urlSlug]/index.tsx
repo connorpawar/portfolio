@@ -1,8 +1,8 @@
 import { Heading, Container, Tag, Text, useColorMode } from "@chakra-ui/react";
 import { fetchEntries } from "@utils/contentfulPosts";
 import ContentfulRichText from "@utils/ContentfulRichText";
-import SEO from "@components/SEO/SEO";
-import BackButton from "@components/BackButton";
+import { SEO } from "@components/SEO";
+import { BackButton } from "@components/Layout/BackButton";
 // import api from '@utils/api';
 
 const Post = ({ post }) => {
@@ -40,6 +40,7 @@ const Post = ({ post }) => {
     </>
   );
 };
+
 export async function getStaticPaths() {
   const res = await fetchEntries();
   const posts = await res.map((p) => {

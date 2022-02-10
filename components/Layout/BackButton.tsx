@@ -3,7 +3,7 @@ import { IconButton } from "@chakra-ui/react";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
-const BackButton = () => {
+export const BackButton = () => {
   const router = useRouter();
   return (
     <IconButton
@@ -20,5 +20,3 @@ const BackButton = () => {
     />
   );
 };
-
-export default BackButton;
