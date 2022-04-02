@@ -1,12 +1,12 @@
 import React from "react";
-import { Button, useBreakpointValue } from "@chakra-ui/react";
+import {useRouter} from 'next/router';
+import { Button } from "@chakra-ui/react";
 import { useColorMode } from "@chakra-ui/react";
 import { MoonIcon, StarIcon } from "@chakra-ui/icons";
 
 export const Darkmode = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-
-  const marginLeft = useBreakpointValue({ base: "80%", md: "90%", sm: "70%" });
+  const router = useRouter();
 
   return (
     <Button
@@ -14,9 +14,10 @@ export const Darkmode = () => {
       label="darkmode"
       variant="solid"
       onClick={toggleColorMode}
-      marginLeft={marginLeft}
+      marginLeft={router.pathname === "/" ? "5em" : "10em"}
+	  width="5em"
       top="1em"
-      position="absolute"
+	  position="relative"
       zIndex="1000"
       size="lg"
     >
