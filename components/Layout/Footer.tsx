@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
-import twitter from "react-useanimations/lib/twitter";
+import toggle from "react-useanimations/lib/toggle";
 import { handleNavAwayClick } from "@utils/helpers";
+import { useColorMode } from "@chakra-ui/react";
 
 const StyledFooter = styled.footer`
   width: 100%;
@@ -18,6 +19,8 @@ const StyledFooter = styled.footer`
 `;
 
 export const Footer = () => {
+	const { colorMode, toggleColorMode } = useColorMode();
+	
   return (
     <StyledFooter>
       <UseAnimations
@@ -34,12 +37,13 @@ export const Footer = () => {
         strokeColor="white"
         style={{ padding: 100 }}
       />
-      {/* Need to add link for twitter */}
       <UseAnimations
-        animation={twitter}
+        animation={toggle}
         strokeColor="white"
         size={56}
         style={{ padding: 100 }}
+		onClick={toggleColorMode}
+		reverse={colorMode === "dark"}
       />
     </StyledFooter>
   );
