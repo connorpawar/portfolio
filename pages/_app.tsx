@@ -9,7 +9,7 @@ import { AppProps } from "next/app";
 import "prismjs";
 import { DefaultSeo } from "next-seo";
 import siteConfig from "configs/site-config";
-import { Darkmode, Footer } from "@components/Layout";
+import { Footer } from "@components/Layout";
 
 function App({ Component, pageProps }: AppProps): React.ReactNode {
   const theme = extendTheme({
@@ -53,7 +53,6 @@ function App({ Component, pageProps }: AppProps): React.ReactNode {
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <DefaultSeo {...siteConfig.seo} />
       <div className="container">
-        <Darkmode />
         <Component {...pageProps} />
         <Footer />
       </div>
