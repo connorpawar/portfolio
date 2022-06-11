@@ -22,7 +22,7 @@
     "@types/next": "^9.0.0",
     "babel-plugin-prismjs": "^2.0.1",
     "contentful": "8.1.7",
-    "framer-motion": "^2.9.4",
+    "framer-motion": "^3.10.1",
     "fuse.js": "^6.4.6",
     "netlify-lambda": "^2.0.2",
     "next": "10.0.5",

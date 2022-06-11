@@ -24,6 +24,7 @@ const Projects: FC = () => {
           display: "flex",
           background: backgroundColor,
           backgroundRepeat: "repeat",
+          marginTop: "40px",
         }}
       >
         <>
@@ -33,7 +34,7 @@ const Projects: FC = () => {
           <Stack direction={["column", "column", "row"]} spacing={4}>
             {projects.map((p) => {
               return (
-                <ScaleFade initialScale={0.9} in={true}>
+                <ScaleFade key={p.title} initialScale={0.9} in={true}>
                   <DisplayCard
                     key={p.title}
                     year={p.year}
@@ -53,6 +54,6 @@ const Projects: FC = () => {
       </main>
     </>
   );
-}
+};
 
 export default Projects;

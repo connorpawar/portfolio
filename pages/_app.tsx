@@ -1,20 +1,16 @@
 import React from "react";
-import {
-  ChakraProvider,
-  CSSReset,
-  extendTheme,
-  ColorModeScript,
-} from "@chakra-ui/react";
+import { CSSReset, extendTheme, ColorModeScript } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import "prismjs";
 import { DefaultSeo } from "next-seo";
 import siteConfig from "configs/site-config";
 import { Footer } from "@components/Layout";
+import { Chakra } from "./Chakra";
 
 function App({ Component, pageProps }: AppProps): React.ReactNode {
   const theme = extendTheme({
-    initialColorMode: "dark",
-    useSystemColorMode: true,
+    initialColorMode: "system",
+    useSystemColorMode: false,
     styles: {
       global: (props) => ({
         "html, body": {
@@ -39,16 +35,12 @@ function App({ Component, pageProps }: AppProps): React.ReactNode {
           flexDirection: "column",
           justifyContent: "center",
           minHeight: "100vh",
-          background:
-            props.colorMode === "light"
-              ? `linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)), url('/tile.png')`
-              : `url('/tile-dark.png')`,
         },
       }),
     },
   });
   return (
-    <ChakraProvider theme={theme}>
+    <Chakra theme={theme} cookies={pageProps.cookies}>
       <CSSReset />
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <DefaultSeo {...siteConfig.seo} />
@@ -56,7 +48,7 @@ function App({ Component, pageProps }: AppProps): React.ReactNode {
         <Component {...pageProps} />
         <Footer />
       </div>
-    </ChakraProvider>
+    </Chakra>
   );
 }
 export default App;

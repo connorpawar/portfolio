@@ -22,7 +22,7 @@ export const Hero: FC = () => {
     >
       <Box mb="5">
         <Img width="600px" src="/hero-image-cutout.png" filter={imgFilter} />
-        <Box flexGrow={1} ml="0" mr="auto" a>
+        <Box flexGrow={1} ml="0" mr="auto">
           <ScaleFade initialScale={0.9} in={true}>
             <Flex direction={["column", null, "row"]} alignItems={"center"}>
               <Box>
@@ -48,4 +48,4 @@ export const Hero: FC = () => {
       </Box>
     </Flex>
   );
-}
+};
