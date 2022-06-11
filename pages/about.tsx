@@ -6,6 +6,7 @@ import {
   Img,
   SlideFade,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import { BackButton } from "@components/Layout";
 import { Link } from "@components/TextStlying";
@@ -50,19 +51,21 @@ export const About: FC = () => {
           />
         </SlideFade>
         <br />
-        <SlideFade in={animate}>
-          <Text fontSize="2xl" margin="20px" w={{ base: "80%", md: "60%" }}>
-            I'm a professional fullstack developer with a specialization in{" "}
-            <Link url="https://reactjs.org/">React</Link>. I also work a lot
-            with <Link url="https://dotnet.microsoft.com/en-us/">.NET</Link> and
-            server side JS (I plan on learning some Deno soon!), so I have
-            experience with all kinds of web development. This site is where I{" "}
-            <Link url="/projects">experiment</Link> with new ideas/technologies
-            and also <Link url="/blog">write</Link> about them from
-            time-to-time. Hopefully you enjoy reading about my work, as much as
-            I enjoy sharing what I pick up along the way!
-          </Text>
-        </SlideFade>
+        <Box margin="20px" w={{ base: "80%", md: "60%" }}>
+          <SlideFade in={animate}>
+            <Text fontSize="2xl">
+              I'm a professional fullstack developer with a specialization in{" "}
+              <Link url="https://reactjs.org/">React</Link>. I also work a lot
+              with <Link url="https://dotnet.microsoft.com/en-us/">.NET</Link>{" "}
+              and server side JS (I plan on learning some Deno soon!), so I have
+              experience with all kinds of web development. This site is where I{" "}
+              <Link url="/projects">experiment</Link> with new
+              ideas/technologies and also <Link url="/blog">write</Link> about
+              them from time-to-time. Hopefully you enjoy reading about my work,
+              as much as I enjoy sharing what I pick up along the way!
+            </Text>
+          </SlideFade>
+        </Box>
       </main>
     </>
   );
