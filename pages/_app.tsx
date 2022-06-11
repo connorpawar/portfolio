@@ -5,7 +5,7 @@ import "prismjs";
 import { DefaultSeo } from "next-seo";
 import siteConfig from "configs/site-config";
 import { Footer } from "@components/Layout";
-import { Chakra } from "./Chakra";
+import { Chakra } from "@components/Chakra";
 
 function App({ Component, pageProps }: AppProps): React.ReactNode {
   const theme = extendTheme({
