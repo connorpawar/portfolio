@@ -1,6 +1,12 @@
 import React, { useEffect, useState, FC } from "react";
 import Head from "next/head";
-import { Heading, Text, Img, SlideFade, useColorModeValue } from "@chakra-ui/react";
+import {
+  Heading,
+  Text,
+  Img,
+  SlideFade,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { BackButton } from "@components/Layout";
 import { Link } from "@components/TextStlying";
 
@@ -29,7 +35,6 @@ export const About: FC = () => {
         style={{
           display: "flex",
           background: backgroundColor,
-          backgroundRepeat: "repeat",
           marginTop: "40px",
         }}
       >
@@ -45,8 +50,8 @@ export const About: FC = () => {
           />
         </SlideFade>
         <br />
-        <Text fontSize="2xl" margin="20px" w={{ base: "80%", md: "60%" }}>
-          <SlideFade in={animate}>
+        <SlideFade in={animate}>
+          <Text fontSize="2xl" margin="20px" w={{ base: "80%", md: "60%" }}>
             I'm a professional fullstack developer with a specialization in{" "}
             <Link url="https://reactjs.org/">React</Link>. I also work a lot
             with <Link url="https://dotnet.microsoft.com/en-us/">.NET</Link> and
@@ -56,11 +61,11 @@ export const About: FC = () => {
             and also <Link url="/blog">write</Link> about them from
             time-to-time. Hopefully you enjoy reading about my work, as much as
             I enjoy sharing what I pick up along the way!
-          </SlideFade>
-        </Text>
+          </Text>
+        </SlideFade>
       </main>
     </>
   );
-}
+};
 
 export default About;

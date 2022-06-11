@@ -39,7 +39,7 @@ export const BlogHome = ({ posts }) => {
         style={{
           display: "flex",
           background: backgroundColor,
-          backgroundRepeat: "repeat",
+          marginTop: "40px",
         }}
       >
         <SearchBar
@@ -57,4 +57,4 @@ export const BlogHome = ({ posts }) => {
       </main>
     </>
   );
-}
+};

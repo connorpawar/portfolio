@@ -1,4 +1,11 @@
-import { Heading, Container, Tag, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import {
+  Heading,
+  Container,
+  Tag,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { fetchEntries } from "@utils/contentfulPosts";
 import ContentfulRichText from "@utils/ContentfulRichText";
 import { SEO } from "@components/SEO";
@@ -19,7 +26,7 @@ const Post = ({ post }) => {
         style={{
           display: "flex",
           background: backgroundColor,
-          backgroundRepeat: "repeat",
+          marginTop: "40px",
         }}
       >
         <Container fontSize="lg" maxWidth="120ch" marginBottom="30px">

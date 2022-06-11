@@ -56,7 +56,7 @@ const Feature = ({
 
 export const BlogEntries = ({ posts }) => {
   return (
-    <Flex direction={["column", "row"]} spacing={8} wrap="wrap">
+    <Flex direction={["column", "row"]} wrap="wrap">
       {posts.map((post) => (
         <>
           <Feature
