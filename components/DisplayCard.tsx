@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Badge, Heading, useColorMode } from "@chakra-ui/react";
+import { Box, Badge, Heading, Img, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 export const DisplayCard = ({
@@ -30,8 +30,15 @@ export const DisplayCard = ({
       background={colorMode === "light" ? "white" : "gray.900"}
       onClick={() => router.push(url)}
     >
-      <img src={image} alt={imageDesc} />
-
+      <Box m="5">
+        <Img
+          src={image}
+          alt={imageDesc}
+          objectFit="cover"
+          boxSize="300px"
+          borderRadius="full"
+        />
+      </Box>
       <Box p="6" minH="3xs">
         <Box d="flex" alignItems="baseline">
           <Badge borderRadius="full" px="4" colorScheme={badgeColor}>
