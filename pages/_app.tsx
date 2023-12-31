@@ -1,4 +1,5 @@
 import React from "react";
+import { CacheProvider } from "@chakra-ui/next-js";
 import { CSSReset, extendTheme, ColorModeScript } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import "prismjs";
@@ -41,13 +42,15 @@ function App({ Component, pageProps }: AppProps): React.ReactNode {
   });
   return (
     <Chakra theme={theme} cookies={pageProps.cookies}>
+      {/* <CacheProvider> */}
       <CSSReset />
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <ColorModeScript initialColorMode="dark" />
       <DefaultSeo {...siteConfig.seo} />
       <div className="container">
         <Component {...pageProps} />
         <Footer />
       </div>
+      {/* </CacheProvider> */}
     </Chakra>
   );
 }
