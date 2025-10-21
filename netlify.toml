@@ -10,4 +10,4 @@
   framework = "#static"
 
 [[plugins]]
-package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
