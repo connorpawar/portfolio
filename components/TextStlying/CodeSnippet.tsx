@@ -1,21 +1,43 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11y, a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { a11y, a11yDark } from "react-syntax-highlighter/dist/styles";
 import { useColorMode } from "@chakra-ui/react";
 
-const CodeRenderer = ({ value, language }) => {
-  const { colorMode } = useColorMode();
-  return (
-    <SyntaxHighlighter
-      language={language}
-      style={colorMode === "light" ? a11y : a11yDark}
-    >
-      {value}
-    </SyntaxHighlighter>
-  );
+type MarkdownRendererProps = {
+  children: string;
 };
 
-export const CodeSnippet = ({ markdown }) => {
-  return <ReactMarkdown source={markdown} renderers={{ code: CodeRenderer }} />;
-};
+export function CodeSnippet({ children: markdown }: MarkdownRendererProps) {
+  const { colorMode } = useColorMode();
+  return (
+    <Markdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw]}
+      components={{
+        code({ node, inline, className, children, ...props }: any) {
+          const match = /language-(\w+)/.exec(className || "");
+
+          return !inline && match ? (
+            <SyntaxHighlighter
+              style={colorMode == "light" ? a11y : a11yDark}
+              PreTag="div"
+              language={match[1]}
+              {...props}
+            >
+              {String(children).replace(/\n$/, "")}
+            </SyntaxHighlighter>
+          ) : (
+            <code className={className} {...props}>
+              {children}
+            </code>
+          );
+        },
+      }}
+    >
+      {markdown}
+    </Markdown>
+  );
+}

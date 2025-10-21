@@ -33,7 +33,7 @@ export const NewPostCard = ({
       <img src={`https:${file.url}`} alt={description} />
 
       <Box p="6" minH="3xs">
-        <Box d="flex" alignItems="baseline">
+        <Box dir="flex" alignItems="baseline">
           <Badge borderRadius="full" px="2" colorScheme="green">
             New
           </Badge>

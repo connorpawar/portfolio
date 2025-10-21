@@ -47,7 +47,6 @@ export const About: FC = () => {
             boxSize="175px"
             src="headshot.png"
             alt="Connor Pawar"
-            style={{ transform: "rotate(-20deg)" }}
           />
         </SlideFade>
         <br />

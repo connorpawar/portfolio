@@ -27,7 +27,7 @@ const Feature = ({
       {...rest}
     >
       <Heading fontSize="xl">{title}</Heading>
-      <Box d="flex" alignItems="baseline">
+      <Box dir="flex" alignItems="baseline">
         <Box
           color="gray.500"
           fontWeight="semibold"

@@ -38,7 +38,7 @@ const richTextOptions = {
     },
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
       const { code } = node.data.target.fields;
-      return <CodeSnippet markdown={code} />;
+      return <CodeSnippet>{code}</CodeSnippet>;
     },
     [BLOCKS.HEADING_1]: (_node, children) => {
       return (
