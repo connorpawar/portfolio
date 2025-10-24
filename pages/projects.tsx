@@ -1,13 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Head from "next/head";
-import { Heading, ScaleFade, Stack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
 import { DisplayCard } from "@components/DisplayCard";
 import { BackButton } from "@components/Layout";
 
 import projects from "../configs/projects.json";
+import { useTheme } from "next-themes";
 
 const Projects: FC = () => {
-  const backgroundColor = useColorModeValue("white", "#152427");
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const backgroundColor = resolvedTheme == "light" ? "white" : "#152427";
 
   return (
     <>
@@ -31,10 +43,15 @@ const Projects: FC = () => {
           <Heading as="h2" size="xl" m="10px">
             Most Recent Projects
           </Heading>
-          <Stack direction={["column", "column", "row"]} spacing={4}>
+          <Stack direction={["column", "column", "row"]} spaceX={4}>
             {projects.map((p) => {
               return (
-                <ScaleFade key={p.title} initialScale={0.9} in={true}>
+                <Box
+                  key={p.title}
+                  data-state="open"
+                  animationDuration="slow"
+                  animationStyle={{ _open: "scale-fade-in" }}
+                >
                   <DisplayCard
                     key={p.title}
                     year={p.year}
@@ -46,7 +63,7 @@ const Projects: FC = () => {
                     badgeText={p.badgeText}
                     badgeColor={p.badgeColor}
                   />
-                </ScaleFade>
+                </Box>
               );
             })}
           </Stack>

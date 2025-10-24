@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Box, Badge, Heading, useColorMode } from "@chakra-ui/react";
+import { Box, Badge, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 export const NewPostCard = ({
   image,
@@ -13,7 +14,7 @@ export const NewPostCard = ({
 }) => {
   let { file, description } = image;
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  const { resolvedTheme } = useTheme();
 
   return (
     <Box
@@ -27,7 +28,7 @@ export const NewPostCard = ({
       shadow="sm"
       transition="0.2s"
       _hover={{ shadow: "lg" }}
-      background={colorMode === "light" ? "white" : "gray.900"}
+      background={resolvedTheme === "light" ? "white" : "gray.900"}
       onClick={() => router.push(`blog/post/${url}`)}
     >
       <img src={`https:${file.url}`} alt={description} />
@@ -58,7 +59,7 @@ export const NewPostCard = ({
           as="h4"
           size="md"
           lineHeight="tight"
-          isTruncated
+          truncate
         >
           {title}
         </Heading>

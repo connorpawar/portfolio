@@ -46,9 +46,9 @@ const Feature = ({
         {description}
       </Text>
       {tags?.map((tag) => (
-        <Tag key={tag} m="2px">
+        <Tag.Root key={tag} m="2px">
           {tag}
-        </Tag>
+        </Tag.Root>
       ))}
     </Box>
   );

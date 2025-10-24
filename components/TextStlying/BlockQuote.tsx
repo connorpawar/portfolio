@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useColorModeValue } from "@chakra-ui/react";
+import { useTheme } from "next-themes";
 
 const Quote = styled.blockquote`
   font-size: 1.2em;
@@ -29,12 +29,9 @@ const Quote = styled.blockquote`
 `;
 
 export const BlockQuote = ({ quoteText, quoter }) => {
-  const bg = useColorModeValue("#EDEDED", "#282828");
-  const txtColor = useColorModeValue("#555555", "#FFFFFF");
+  const { resolvedTheme } = useTheme();
+  const bg = resolvedTheme == "light" ? "#EDEDED" : "#282828";
+  const txtColor = resolvedTheme == "light" ? "#555555" : "#FFFFFF";
 
-  return (
-    <Quote style={{ background: bg, color: txtColor }}>
-      {quoteText}
-    </Quote>
-  );
+  return <Quote style={{ background: bg, color: txtColor }}>{quoteText}</Quote>;
 };

@@ -4,14 +4,15 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dracula, docco } from "react-syntax-highlighter/dist/styles";
-import { useColorMode } from "@chakra-ui/react";
+import { useTheme } from "next-themes";
 
 type MarkdownRendererProps = {
   children: string;
 };
 
 export function CodeSnippet({ children: markdown }: MarkdownRendererProps) {
-  const { colorMode } = useColorMode();
+  const { resolvedTheme } = useTheme();
+
   return (
     <Markdown
       remarkPlugins={[remarkGfm]}
@@ -22,7 +23,7 @@ export function CodeSnippet({ children: markdown }: MarkdownRendererProps) {
 
           return !inline && match ? (
             <SyntaxHighlighter
-              style={colorMode == "light" ? docco : dracula}
+              style={resolvedTheme == "light" ? docco : dracula}
               PreTag="div"
               language={match[1]}
               {...props}

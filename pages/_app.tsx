@@ -1,57 +1,58 @@
 import React from "react";
-import { CacheProvider } from "@chakra-ui/next-js";
-import { CSSReset, extendTheme, ColorModeScript } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import "prismjs";
 import { DefaultSeo } from "next-seo";
 import siteConfig from "configs/site-config";
 import { Footer } from "@components/Layout";
-import { Chakra } from "@components/Chakra";
+import { Provider } from "@components/ui/provider";
+import { ThemeProvider, ThemeProviderProps } from "next-themes";
+
+export interface ColorModeProviderProps extends ThemeProviderProps {}
+
+export function ColorModeProvider(props: ColorModeProviderProps) {
+  return (
+    <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
+  );
+}
+
+export type ColorMode = "light" | "dark";
+
+export interface UseColorModeReturn {
+  colorMode: ColorMode;
+  setColorMode: (colorMode: ColorMode) => void;
+  toggleColorMode: () => void;
+}
+
+// export function useColorMode(): UseColorModeReturn {
+//   const { resolvedTheme, setTheme, forcedTheme } = useTheme()
+//   const colorMode = forcedTheme || resolvedTheme
+//   const toggleColorMode = () => {
+//     setTheme(resolvedTheme === "dark" ? "light" : "dark")
+//   }
+//   return {
+//     colorMode: colorMode as ColorMode,
+//     setColorMode: setTheme,
+//     toggleColorMode,
+//   }
+// }
+
+// export function useColorModeValue<T>(light: T, dark: T) {
+//   const { colorMode } = useColorMode()
+//   return colorMode === "dark" ? dark : light
+// }
 
 function App({ Component, pageProps }: AppProps): React.ReactNode {
-  const theme = extendTheme({
-    initialColorMode: "system",
-    useSystemColorMode: false,
-    styles: {
-      global: (props) => ({
-        "html, body": {
-          padding: 0,
-          margin: 0,
-          fontFamily:
-            "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-          fontSize: "sm",
-          color: props.colorMode === "dark" ? "white" : "#152427",
-          background: props.colorMode === "dark" ? "#152427" : "white",
-          lineHeight: "tall",
-        },
-        main: {
-          padding: "2rem 0",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          flex: "1 0 auto",
-        },
-        ".container": {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          minHeight: "100vh",
-        },
-      }),
-    },
-  });
   return (
-    <Chakra theme={theme} cookies={pageProps.cookies}>
-      {/* <CacheProvider> */}
-      <CSSReset />
-      <ColorModeScript initialColorMode="dark" />
+    <Provider>
       <DefaultSeo {...siteConfig.seo} />
       <div className="container">
-        <Component {...pageProps} />
-        <Footer />
+        <ThemeProvider>
+          <Component {...pageProps} />
+          <Footer />
+        </ThemeProvider>
       </div>
       {/* </CacheProvider> */}
-    </Chakra>
+    </Provider>
   );
 }
 export default App;

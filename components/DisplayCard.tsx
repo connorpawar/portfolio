@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Box, Badge, Heading, Img, useColorMode } from "@chakra-ui/react";
+import { Box, Badge, Heading, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 export const DisplayCard = ({
   image,
@@ -13,7 +14,7 @@ export const DisplayCard = ({
   badgeColor,
 }) => {
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  const { resolvedTheme } = useTheme();
 
   return (
     <Box
@@ -27,11 +28,11 @@ export const DisplayCard = ({
       shadow="sm"
       transition="0.2s"
       _hover={{ shadow: "lg" }}
-      background={colorMode === "light" ? "white" : "gray.900"}
+      background={resolvedTheme === "light" ? "white" : "gray.900"}
       onClick={() => router.push(url)}
     >
       <Box m="5">
-        <Img
+        <Image
           src={image}
           alt={imageDesc}
           objectFit="cover"
@@ -61,7 +62,7 @@ export const DisplayCard = ({
           as="h4"
           size="lg"
           lineHeight="tight"
-          isTruncated
+          truncate
         >
           {title}
         </Heading>

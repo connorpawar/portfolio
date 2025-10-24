@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import toggle from "react-useanimations/lib/toggle";
 import { handleNavAwayClick } from "@utils/helpers";
-import { useColorMode } from "@chakra-ui/react";
+import { useTheme } from "next-themes";
 
 const StyledFooter = styled.footer`
   width: 100%;
@@ -19,8 +19,22 @@ const StyledFooter = styled.footer`
 `;
 
 export const Footer = () => {
-	const { colorMode, toggleColorMode } = useColorMode();
-	
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const toggleTheme = () => {
+    const newColor = resolvedTheme == "light" ? "dark" : "light";
+    setTheme(newColor);
+  };
+
   return (
     <StyledFooter>
       <UseAnimations
@@ -42,8 +56,8 @@ export const Footer = () => {
         strokeColor="white"
         size={56}
         style={{ padding: 100 }}
-		onClick={toggleColorMode}
-		reverse={colorMode === "dark"}
+        onClick={toggleTheme}
+        reverse={resolvedTheme == "light"}
       />
     </StyledFooter>
   );

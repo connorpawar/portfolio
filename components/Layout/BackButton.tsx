@@ -12,11 +12,12 @@ export const BackButton = () => {
       size="lg"
       width="100px"
       onClick={router.back}
-      icon={<ArrowLeftIcon />}
       top="1em"
       position="absolute"
       marginLeft="1em"
       zIndex="1000"
-    />
+    >
+      <ArrowLeftIcon />
+    </IconButton>
   );
 };

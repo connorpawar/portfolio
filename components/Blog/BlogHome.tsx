@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Fuse from "fuse.js";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { BlogEntries, PostPreviews } from "@components/Blog";
 import { SEO } from "@components/SEO";
 import { BackButton, SearchBar } from "@components/Layout";
+import { useTheme } from "next-themes";
 
 export const BlogHome = ({ posts }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState<any>(posts);
-  const backgroundColor = useColorModeValue("white", "#152427");
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  const backgroundColor = resolvedTheme == "light" ? "white" : "#152427";
 
   const options = {
     keys: ["title", "author.firstName"],
@@ -20,6 +24,14 @@ export const BlogHome = ({ posts }) => {
   useEffect(() => {
     setFilteredPosts(fuse.search(searchTerm));
   }, [searchTerm]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>

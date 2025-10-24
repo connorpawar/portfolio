@@ -1,16 +1,19 @@
-import React, { FC } from "react";
-import {
-  Box,
-  Flex,
-  Img,
-  ScaleFade,
-  Spacer,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import React, { FC, useEffect, useState } from "react";
+import { Box, Flex, Image, Spacer } from "@chakra-ui/react";
 import { Link } from "./TextStlying";
+import { useTheme } from "next-themes";
 
 export const Hero: FC = () => {
-  const imgFilter = useColorModeValue("invert(1)", "invert(0)");
+  const { resolvedTheme } = useTheme();
+  const imgFilter = resolvedTheme == "light" ? "invert(1)" : "invert(0)";
+  const [animate, setAnimate] = useState("closed");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimate("open");
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Flex
@@ -21,29 +24,34 @@ export const Hero: FC = () => {
       mb={{ base: 0, sm: 16 }}
     >
       <Box mb="5">
-        <Img width="600px" src="/hero-image-cutout.png" filter={imgFilter} />
-        <Box flexGrow={1} ml="0" mr="auto">
-          <ScaleFade initialScale={0.9} in={true}>
-            <Flex direction={["column", null, "row"]} alignItems={"center"}>
-              <Box>
-                <Link url="/projects" fontSize="3em">
-                  Projects
-                </Link>
-              </Box>
-              <Spacer />
-              <Box>
-                <Link url="/blog" fontSize="3em">
-                  Blog
-                </Link>
-              </Box>
-              <Spacer />
-              <Box>
-                <Link url="/about" fontSize="3em">
-                  About
-                </Link>
-              </Box>
-            </Flex>
-          </ScaleFade>
+        <Image width="600px" src="/hero-image-cutout.png" filter={imgFilter} />
+        <Box
+          flexGrow={1}
+          data-state={animate}
+          animationDuration="slow"
+          animationStyle={{ _open: "slide-fade-in", _closed: "slide-fade-out" }}
+          ml="0"
+          mr="auto"
+        >
+          <Flex direction={["column", null, "row"]} alignItems={"center"}>
+            <Box>
+              <Link url="/projects" fontSize="3em" asText>
+                Projects
+              </Link>
+            </Box>
+            <Spacer />
+            <Box>
+              <Link url="/blog" fontSize="3em" asText>
+                Blog
+              </Link>
+            </Box>
+            <Spacer />
+            <Box>
+              <Link url="/about" fontSize="3em" asText>
+                About
+              </Link>
+            </Box>
+          </Flex>
         </Box>
       </Box>
     </Flex>

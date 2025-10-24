@@ -1,22 +1,24 @@
-import {
-  Heading,
-  Container,
-  Tag,
-  Text,
-  useColorMode,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Heading, Container, Tag, Text } from "@chakra-ui/react";
 import { fetchEntries } from "@utils/contentfulPosts";
 import ContentfulRichText from "@utils/ContentfulRichText";
 import { SEO } from "@components/SEO";
 import { BackButton } from "@components/Layout/BackButton";
-// import api from '@utils/api';
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Post = ({ post }) => {
-  //   const router = useRouter();
-  //   let resp = api.getReactions(post.urlSlug).then((ans) => console.log(ans));
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
 
-  const backgroundColor = useColorModeValue("white", "#152427");
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const backgroundColor = resolvedTheme == "light" ? "white" : "#152427";
 
   return (
     <>
@@ -34,9 +36,9 @@ const Post = ({ post }) => {
           {ContentfulRichText(post.body)}
           <Text>Tags: </Text>
           {post.metaData?.tags?.map((tag, index) => (
-            <Tag key={index} size="lg" margin="12px">
+            <Tag.Root key={index} size="lg" margin="12px">
               {tag}
-            </Tag>
+            </Tag.Root>
           ))}
         </Container>
       </main>
