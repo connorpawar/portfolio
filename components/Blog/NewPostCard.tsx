@@ -32,6 +32,7 @@ export const NewPostCard = ({
     <Box
       as="button"
       textAlign="start"
+      width="100%"
       maxW="sm"
       minH="xl"
       borderWidth="1px"
@@ -45,7 +46,11 @@ export const NewPostCard = ({
         onSelect ? onSelect(post) : router.push(`blog/post/${url}`)
       }
     >
-      <img src={`https:${file.url}`} alt={description} />
+      <img
+        src={`https:${file.url}`}
+        alt={description}
+        style={{ maxWidth: "100%", display: "block" }}
+      />
 
       <Box p="6" minH="3xs">
         <Box dir="flex" alignItems="baseline">

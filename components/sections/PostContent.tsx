@@ -23,7 +23,7 @@ export const PostContent: React.FC<Props> = ({ post, onBack }) => (
       color="inherit"
       _hover={{ opacity: 1 }}
     >
-      ← Back to Blog
+      ← Back to Posts
     </Box>
     <Heading pt={2} mb={4}>
       {post.title}

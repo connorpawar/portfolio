@@ -259,7 +259,7 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
           </div>
         ) : /* ── Spread mode ── */
         isMobile ? (
-          /* Mobile: full-width content + bottom nav bar */
+          /* Mobile: top nav bar + full-width content */
           <div
             style={{
               display: "flex",
@@ -267,6 +267,62 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
               height: "calc(100vh - 100px)",
             }}
           >
+            {/* Top nav bar */}
+            <div
+              style={{
+                display: "flex",
+                borderBottom: `1px solid ${
+                  resolvedTheme === "light"
+                    ? "rgba(0,0,0,0.12)"
+                    : "rgba(255,255,255,0.12)"
+                }`,
+                background: bgColor,
+                flexShrink: 0,
+              }}
+            >
+              <EdgeBtn
+                $color={textColor}
+                onClick={handleLeftClick}
+                style={{ flex: 1, textAlign: "center" }}
+                aria-label={`Switch to ${LABELS[arrangement[0]]}`}
+              >
+                <span
+                  key={`left-${contentKey}`}
+                  className={slideDir !== "init" ? "label-from-right" : ""}
+                >
+                  {LABELS[arrangement[0]]}
+                </span>
+              </EdgeBtn>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "inherit",
+                  fontSize: "1.5em",
+                  fontWeight: 700,
+                  padding: "8px",
+                  color: textColor,
+                }}
+              >
+                {LABELS[arrangement[1]]}
+              </div>
+              <EdgeBtn
+                $color={textColor}
+                onClick={handleRightClick}
+                style={{ flex: 1, textAlign: "center" }}
+                aria-label={`Switch to ${LABELS[arrangement[2]]}`}
+              >
+                <span
+                  key={`right-${contentKey}`}
+                  className={slideDir !== "init" ? "label-from-left" : ""}
+                >
+                  {LABELS[arrangement[2]]}
+                </span>
+              </EdgeBtn>
+            </div>
+
             {/* Scrollable content */}
             <div
               key={contentKey}
@@ -277,7 +333,7 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
                 style={{
                   minHeight: "100%",
                   display: "flex",
-                  alignItems: "flex-start",
+                  alignItems: "center",
                   justifyContent: "center",
                   padding: "24px 20px",
                 }}
@@ -286,81 +342,6 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
                   {renderContent(arrangement[1])}
                 </div>
               </div>
-            </div>
-
-            {/* Bottom nav bar */}
-            <div
-              style={{
-                display: "flex",
-                borderTop: `1px solid ${
-                  resolvedTheme === "light"
-                    ? "rgba(0,0,0,0.12)"
-                    : "rgba(255,255,255,0.12)"
-                }`,
-                background: bgColor,
-                flexShrink: 0,
-              }}
-            >
-              <button
-                onClick={handleLeftClick}
-                style={{
-                  flex: 1,
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  color: textColor,
-                  fontFamily: "inherit",
-                  fontSize: "1.1em",
-                  padding: "16px 8px",
-                  opacity: 0.45,
-                  textAlign: "center",
-                }}
-              >
-                <span
-                  key={`left-${contentKey}`}
-                  className={slideDir !== "init" ? "label-from-right" : ""}
-                >
-                  {LABELS[arrangement[0]]}
-                </span>
-              </button>
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: "inherit",
-                  fontSize: "1.1em",
-                  fontWeight: 700,
-                  padding: "16px 8px",
-                  color: textColor,
-                  textAlign: "center",
-                }}
-              >
-                {LABELS[arrangement[1]]}
-              </div>
-              <button
-                onClick={handleRightClick}
-                style={{
-                  flex: 1,
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  color: textColor,
-                  fontFamily: "inherit",
-                  fontSize: "1.1em",
-                  padding: "16px 8px",
-                  opacity: 0.45,
-                  textAlign: "center",
-                }}
-              >
-                <span
-                  key={`right-${contentKey}`}
-                  className={slideDir !== "init" ? "label-from-left" : ""}
-                >
-                  {LABELS[arrangement[2]]}
-                </span>
-              </button>
             </div>
           </div>
         ) : (
