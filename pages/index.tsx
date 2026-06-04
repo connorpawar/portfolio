@@ -92,9 +92,15 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
   const [slideDir, setSlideDir] = useState<SlideDir>("init");
   const [contentKey, setContentKey] = useState(0);
   const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const mq = window.matchMedia("(max-width: 640px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   if (!mounted) return null;
@@ -251,8 +257,114 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
               </StackBtn>
             ))}
           </div>
+        ) : /* ── Spread mode ── */
+        isMobile ? (
+          /* Mobile: full-width content + bottom nav bar */
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "calc(100vh - 100px)",
+            }}
+          >
+            {/* Scrollable content */}
+            <div
+              key={contentKey}
+              className={animClass}
+              style={{ flex: 1, overflowY: "auto" }}
+            >
+              <div
+                style={{
+                  minHeight: "100%",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "center",
+                  padding: "24px 20px",
+                }}
+              >
+                <div style={{ maxWidth: "900px", width: "100%" }}>
+                  {renderContent(arrangement[1])}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom nav bar */}
+            <div
+              style={{
+                display: "flex",
+                borderTop: `1px solid ${
+                  resolvedTheme === "light"
+                    ? "rgba(0,0,0,0.12)"
+                    : "rgba(255,255,255,0.12)"
+                }`,
+                background: bgColor,
+                flexShrink: 0,
+              }}
+            >
+              <button
+                onClick={handleLeftClick}
+                style={{
+                  flex: 1,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: textColor,
+                  fontFamily: "inherit",
+                  fontSize: "1.1em",
+                  padding: "16px 8px",
+                  opacity: 0.45,
+                  textAlign: "center",
+                }}
+              >
+                <span
+                  key={`left-${contentKey}`}
+                  className={slideDir !== "init" ? "label-from-right" : ""}
+                >
+                  {LABELS[arrangement[0]]}
+                </span>
+              </button>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "inherit",
+                  fontSize: "1.1em",
+                  fontWeight: 700,
+                  padding: "16px 8px",
+                  color: textColor,
+                  textAlign: "center",
+                }}
+              >
+                {LABELS[arrangement[1]]}
+              </div>
+              <button
+                onClick={handleRightClick}
+                style={{
+                  flex: 1,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: textColor,
+                  fontFamily: "inherit",
+                  fontSize: "1.1em",
+                  padding: "16px 8px",
+                  opacity: 0.45,
+                  textAlign: "center",
+                }}
+              >
+                <span
+                  key={`right-${contentKey}`}
+                  className={slideDir !== "init" ? "label-from-left" : ""}
+                >
+                  {LABELS[arrangement[2]]}
+                </span>
+              </button>
+            </div>
+          </div>
         ) : (
-          /* ── Spread mode ── */
+          /* Desktop: side columns */
           <div
             style={{
               display: "flex",
