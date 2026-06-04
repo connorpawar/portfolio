@@ -2,7 +2,13 @@ import React from "react";
 import { Stack, Heading, Box } from "@chakra-ui/react";
 import { NewPostCard } from "./NewPostCard";
 
-export const PostPreviews = ({ posts }) => {
+export const PostPreviews = ({
+  posts,
+  onSelectPost,
+}: {
+  posts: any[];
+  onSelectPost?: (post: any) => void;
+}) => {
   return (
     <>
       <Heading as="h2" size="xl" m="10px">
@@ -26,6 +32,8 @@ export const PostPreviews = ({ posts }) => {
                 readingTime={p.readingTime}
                 tags={p.metaData.tags}
                 url={p.urlSlug}
+                post={p}
+                onSelect={onSelectPost}
               />
             </Box>
           );

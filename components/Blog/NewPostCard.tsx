@@ -11,6 +11,18 @@ export const NewPostCard = ({
   tags,
   readingTime,
   pubDate,
+  post,
+  onSelect,
+}: {
+  image: any;
+  url: string;
+  title: string;
+  desc: string;
+  tags?: string[];
+  readingTime: number;
+  pubDate: string;
+  post?: any;
+  onSelect?: (post: any) => void;
 }) => {
   let { file, description } = image;
   const router = useRouter();
@@ -29,7 +41,9 @@ export const NewPostCard = ({
       transition="0.2s"
       _hover={{ shadow: "lg" }}
       background={resolvedTheme === "light" ? "white" : "gray.900"}
-      onClick={() => router.push(`blog/post/${url}`)}
+      onClick={() =>
+        onSelect ? onSelect(post) : router.push(`blog/post/${url}`)
+      }
     >
       <img src={`https:${file.url}`} alt={description} />
 

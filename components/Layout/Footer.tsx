@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import UseAnimations from "react-useanimations";
+import dynamic from "next/dynamic";
 import github from "react-useanimations/lib/github";
 import linkedin from "react-useanimations/lib/linkedin";
 import toggle from "react-useanimations/lib/toggle";
 import { handleNavAwayClick } from "@utils/helpers";
 import { useTheme } from "next-themes";
+
+const UseAnimations = dynamic(() => import("react-useanimations"), {
+  ssr: false,
+});
 
 const StyledFooter = styled.footer`
   width: 100%;

@@ -9,7 +9,19 @@ const Feature = ({
   tags,
   pubDate,
   readingTime,
+  post,
+  onSelect,
   ...rest
+}: {
+  title: string;
+  description: string;
+  url: string;
+  tags?: string[];
+  pubDate: string;
+  readingTime: number;
+  post?: any;
+  onSelect?: (post: any) => void;
+  [key: string]: any;
 }) => {
   const router = useRouter();
   return (
@@ -21,7 +33,9 @@ const Feature = ({
       borderWidth="1px"
       transition="0.2s"
       onClick={() =>
-        router.push(`blog/post/${url}`).then(() => window.scrollTo(0, 0))
+        onSelect
+          ? onSelect(post)
+          : router.push(`blog/post/${url}`).then(() => window.scrollTo(0, 0))
       }
       _hover={{ shadow: "lg" }}
       {...rest}
@@ -54,7 +68,13 @@ const Feature = ({
   );
 };
 
-export const BlogEntries = ({ posts }) => {
+export const BlogEntries = ({
+  posts,
+  onSelectPost,
+}: {
+  posts: any[];
+  onSelectPost?: (post: any) => void;
+}) => {
   return (
     <Flex direction={["column", "row"]} wrap="wrap">
       {posts.map((post) => (
@@ -67,6 +87,8 @@ export const BlogEntries = ({ posts }) => {
             tags={post.metaData?.tags}
             pubDate={post.pubDate}
             readingTime={post.readingTime}
+            post={post}
+            onSelect={onSelectPost}
             width={["100%", "100%", "40%"]}
             m={["0", "5%"]}
             mt="5%"
