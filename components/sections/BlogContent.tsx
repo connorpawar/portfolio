@@ -24,7 +24,8 @@ export const BlogContent: React.FC<{
         setSearchTerm={setSearchTerm}
         filteredPosts={filteredPosts}
         placeholder="Narrow down some topics!"
-        width={["80%", "80%", "50%", "30%"]}
+        onSelect={onSelectPost}
+        width="100%"
         mb="10px"
       />
       <PostPreviews posts={posts.slice(0, 3)} onSelectPost={onSelectPost} />

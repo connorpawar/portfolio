@@ -9,7 +9,6 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 
 export const SearchBar = ({
@@ -17,19 +16,14 @@ export const SearchBar = ({
   setSearchTerm,
   filteredPosts,
   placeholder,
+  onSelect = undefined,
   ...rest
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleChange = (event) => setSearchTerm(event.target.value);
 
-  const router = useRouter();
   const { resolvedTheme } = useTheme();
   const linkBg = resolvedTheme == "light" ? "gray.100" : "gray.700";
-
-  const handleNavClick = (href: string) => (e: any) => {
-    e.preventDefault();
-    router.push(href);
-  };
 
   return (
     <Box {...rest} background={linkBg}>
@@ -55,7 +49,7 @@ export const SearchBar = ({
       <Box
         display={open ? "inline" : "none"}
         bg={linkBg}
-        w={["80%", "80%", "50%", "30%"]}
+        w="100%"
         position="absolute"
         zIndex="2"
       >
@@ -69,7 +63,7 @@ export const SearchBar = ({
               as="button"
               textAlign="left"
               onMouseDown={(e: any) => e.preventDefault()}
-              onClick={handleNavClick(`/blog/post/${result?.item?.urlSlug}`)}
+              onClick={() => onSelect?.(result?.item)}
               shadow="sm"
               transition="0.2s"
               _hover={{ shadow: "lg" }}
