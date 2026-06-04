@@ -15,6 +15,7 @@ export const ProjectsContent: React.FC = () => (
           data-state="open"
           animationDuration="slow"
           animationStyle={{ _open: "scale-fade-in" }}
+          width={["100%", "100%", "auto"]}
         >
           <DisplayCard
             year={p.year}

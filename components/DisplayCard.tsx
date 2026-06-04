@@ -20,6 +20,7 @@ export const DisplayCard = ({
     <Box
       as="button"
       textAlign="start"
+      width="100%"
       maxW="sm"
       minH="xl"
       borderWidth="1px"
