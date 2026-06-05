@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { useTheme } from "next-themes";
-import { fetchEntries } from "@utils/contentfulPosts";
+import posts from "../configs/posts.json";
 import { ProjectsContent } from "@components/sections/ProjectsContent";
 import { AboutContent } from "@components/sections/AboutContent";
 import { BlogContent } from "@components/sections/BlogContent";
@@ -88,6 +89,7 @@ const EdgeBtn = styled.button<{ $color: string }>`
 export const Home: FC<{ posts: any[] }> = ({ posts }) => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
   const [arrangement, setArrangement] = useState<Arrangement | null>(null);
   const [slideDir, setSlideDir] = useState<SlideDir>("init");
   const [contentKey, setContentKey] = useState(0);
@@ -102,6 +104,20 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  useEffect(() => {
+    if (!mounted || !router.isReady) return;
+    const slug = router.query.post as string | undefined;
+    if (!slug) return;
+    const post = posts.find((p: any) => p.urlSlug === slug);
+    if (!post) return;
+    const others = ALL_SECTIONS.filter((s) => s !== "blog") as [
+      Section,
+      Section
+    ];
+    setArrangement([others[0], "blog", others[1]]);
+    setSelectedPost(post);
+  }, [mounted, router.isReady, router.query.post]);
 
   if (!mounted) return null;
 
@@ -119,12 +135,21 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
     setSelectedPost(post);
     setSlideDir("init");
     setContentKey((k) => k + 1);
+    router.push({ query: { post: post.urlSlug } }, undefined, {
+      shallow: true,
+    });
   };
 
   const handleBackToBlog = () => {
     setSelectedPost(null);
     setSlideDir("init");
     setContentKey((k) => k + 1);
+    router.push({ pathname: "/" }, undefined, { shallow: true });
+  };
+
+  const handleGoHome = () => {
+    setArrangement(null);
+    router.push({ pathname: "/" }, undefined, { shallow: true });
   };
 
   const handleStackClick = (section: Section) => {
@@ -238,7 +263,7 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
       >
         {/* Name + subtitle — always in DOM, animates from center to top */}
         <button
-          onClick={arrangement ? () => setArrangement(null) : undefined}
+          onClick={arrangement ? handleGoHome : undefined}
           style={{
             position: "absolute",
             left: "50%",
@@ -490,14 +515,8 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
   );
 };
 
-export async function getStaticProps() {
-  try {
-    const res = await fetchEntries();
-    const posts = res.map((p: any) => p.fields);
-    return { props: { posts } };
-  } catch {
-    return { props: { posts: [] } };
-  }
+export function getStaticProps() {
+  return { props: { posts } };
 }
 
 export default Home;

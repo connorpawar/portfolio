@@ -1,0 +1,279 @@
+[
+  {
+    "title": "How To Use Currying to Your Advantage When Unit Testing React Hooks",
+    "description": "Applying functional programming ideas such as currying to your Jest testing can make things a lot easier on you when writing tests for React hooks.  ",
+    "urlSlug": "currying-for-unit-testing",
+    "pubDate": "2021-02-02",
+    "readingTime": 10,
+    "metaData": {
+      "tags": ["React", "Jest", "Functional Programming", "Testing", "Hooks"]
+    },
+    "splashImg": {
+      "title": "Code Feature Image",
+      "description": "JavaScript and React code closeup.",
+      "url": "//images.ctfassets.net/0j0b5js9hr3y/7hFqawhHT2epkvhXJQ1Jgz/bee531a3803b2d085d1198d26f5b8f43/randomCode.jpeg"
+    },
+    "body": {
+      "nodeType": "document",
+      "data": {},
+      "content": [
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Unit testing in JavaScript and React doesn't have to be something you dread. Personally, I enjoy writing unit tests for UI logic because it forces me to adhere to a more structured and well thought out format. When writing production code, that can be a godsend for comprehension later on by others or simply for your output speed. However, a lot of people find writing unit tests for React UIs to be daunting because of how much you need to tip-toe around the browser APIs or having to Mock hooks. That's why most people resort to snapshot tests 🙄, which while somewhat useful, don't assist in verification of frontend logic. \n\nLook at this simple todo list component: ",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "0j0b5js9hr3y"
+                  }
+                },
+                "id": "1Afeo3GRNjm0RcZgsWmv9b",
+                "type": "Entry",
+                "createdAt": "2021-01-17T19:57:51.061Z",
+                "updatedAt": "2021-01-28T02:54:47.303Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 51,
+                "revision": 3,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "Before Currying",
+                "code": "```js\nconst Todolist = () => {\n  const [entries, setEntries] = useState([]);\n\n  useEffect(() => {\n    let response = await fetch(...);\n    setEntries(response)\n  }, [])\n\n  return(\n    <ul>\n    {entries.map((item) => <li>entry.name</li>)}\n    </ul>\n  );\n}\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "\n\nWhat if I told you that applying a simple tool, such as partial application through currying, could make this extremely straight forward to test?\n",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "0j0b5js9hr3y"
+                  }
+                },
+                "id": "48XD6p2833wYtImPBsfoPS",
+                "type": "Entry",
+                "createdAt": "2021-01-28T02:55:12.259Z",
+                "updatedAt": "2021-01-28T02:55:12.259Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 24,
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "After Currying",
+                "code": "```js\nconst makeTodolist = (IuseState ,IuseEffect) = function() {\n  const [entries, setEntries] = IuseState([]);\n\n  IuseEffect(() => {\n    let response = await fetch(...);\n    setEntries(response)\n  }, [])\n\n  return(\n    <ul>\n    {entries.map((item) => <li>entry.name</li>)}\n    </ul>\n  );\n}\n\nconst TodoList = makeTodoList(useState, useEffect);\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "\nWhile it might not be clear why this is useful, lets look at what exactly we have changed. Instead of immediately exporting the component, we are now making our component be the return of another function like a factory. This allows us to pass in the pesky or hard to mock functions as implementations (Using Typescript this allows you to type them exactly the same as far as intellisense is concearned).  \nYou are now able to more easily mock different implementations for your hooks across multiple tests using a mock of useState such as:\n",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "0j0b5js9hr3y"
+                  }
+                },
+                "id": "7icVDBcDNiiAaIg7kJdb9K",
+                "type": "Entry",
+                "createdAt": "2021-02-02T23:13:06.422Z",
+                "updatedAt": "2021-02-02T23:13:06.422Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 43,
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "Fake useState",
+                "code": "```js\nconst createFakeUseState = (\n  state: any[],\n  setters: Function[]\n) => {\n  let i = 0;\n  return( jest.fn(() => {\n  i++; \n  return ([state[i], setters[i]]);\n});\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "We can pull this all together in the following Jest unit test that will get us to be able to fully test our components!",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "0j0b5js9hr3y"
+                  }
+                },
+                "id": "39VxdGDbVDXSph2hgSaI8X",
+                "type": "Entry",
+                "createdAt": "2021-02-02T23:24:48.852Z",
+                "updatedAt": "2021-02-02T23:24:48.852Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 50,
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "Hooks Unit Test",
+                "code": "```js\ntest(\"Can render component\", () => {\n  const mockUseEffect = jest.fn(x => x());\n  const mockedSetter = jest.fn();\n  const mockUseState = createFakeUseState([\n    {name: 'test1'},\n    {name: 'test2'}],\n    [mockedSetter]);\n\n  const Component = makeTodoList(mockUseState, mockUseEffect);\n\n  const { getByText } = render(<Component />);\n\n  expect(getByText('test1')).toBeDefined();\n});\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": " ",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        }
+      ]
+    }
+  }
+]

@@ -26,7 +26,7 @@ export const SearchBar = ({
   const linkBg = resolvedTheme == "light" ? "gray.100" : "gray.700";
 
   return (
-    <Box {...rest} background={linkBg}>
+    <Box {...rest} background={linkBg} position="relative">
       <InputGroup
         startElement={
           <Box
@@ -47,7 +47,7 @@ export const SearchBar = ({
         />
       </InputGroup>
       <Box
-        display={open ? "inline" : "none"}
+        display={open ? "block" : "none"}
         bg={linkBg}
         w="100%"
         position="absolute"

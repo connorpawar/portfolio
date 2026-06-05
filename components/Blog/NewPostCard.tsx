@@ -24,7 +24,6 @@ export const NewPostCard = ({
   post?: any;
   onSelect?: (post: any) => void;
 }) => {
-  let { file, description } = image;
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
@@ -47,8 +46,8 @@ export const NewPostCard = ({
       }
     >
       <img
-        src={`https:${file.url}`}
-        alt={description}
+        src={`https:${image.url}`}
+        alt={image.description}
         style={{ maxWidth: "100%", display: "block" }}
       />
 

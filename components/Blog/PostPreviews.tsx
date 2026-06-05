@@ -27,7 +27,7 @@ export const PostPreviews = ({
               <NewPostCard
                 key={p.urlSlug}
                 pubDate={p.pubDate}
-                image={p.splashImg.fields}
+                image={p.splashImg}
                 title={p.title}
                 desc={p.description}
                 readingTime={p.readingTime}
