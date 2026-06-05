@@ -229,12 +229,58 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
 
       <main
         style={{
+          position: "relative",
           background: bgColor,
           color: textColor,
           height: "calc(100vh - 100px)",
           overflow: "hidden",
         }}
       >
+        {/* Name + subtitle — always in DOM, animates from center to top */}
+        <button
+          onClick={arrangement ? () => setArrangement(null) : undefined}
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: arrangement ? "16px" : "50%",
+            transform: arrangement
+              ? "translate(-50%, 0)"
+              : "translate(-50%, -225px)",
+            transition:
+              "top 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)",
+            textAlign: "center",
+            background: "none",
+            border: "none",
+            cursor: arrangement ? "pointer" : "default",
+            color: textColor,
+            fontFamily: "inherit",
+            padding: 0,
+            zIndex: 10,
+            whiteSpace: "nowrap",
+          }}
+        >
+          <div
+            style={{
+              fontSize: arrangement ? "1.8em" : "3.5em",
+              fontWeight: 700,
+              lineHeight: 1.1,
+              transition: "font-size 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)",
+            }}
+          >
+            Connor Pawar
+          </div>
+          <div
+            style={{
+              fontSize: arrangement ? "0.7em" : "1.1em",
+              opacity: 0.55,
+              marginTop: "4px",
+              transition: "font-size 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)",
+            }}
+          >
+            Fullstack Software Engineer
+          </div>
+        </button>
+
         {!arrangement ? (
           /* ── Stack mode ── */
           <div
@@ -267,6 +313,8 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
               height: "calc(100vh - 100px)",
             }}
           >
+            {/* Spacer reserved for the animated name */}
+            <div style={{ height: "72px", flexShrink: 0 }} />
             {/* Top nav bar */}
             <div
               style={{
@@ -349,79 +397,91 @@ export const Home: FC<{ posts: any[] }> = ({ posts }) => {
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               height: "calc(100vh - 100px)",
               overflow: "hidden",
             }}
           >
-            {/* Left column — slides in from center on mount */}
+            {/* Spacer reserved for the animated name */}
+            <div style={{ height: "80px", flexShrink: 0 }} />
+            {/* Three-column layout */}
             <div
-              className="edge-col-left"
               style={{
-                width: "150px",
-                flexShrink: 0,
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                flex: 1,
+                overflow: "hidden",
               }}
             >
-              <EdgeBtn
-                $color={textColor}
-                onClick={handleLeftClick}
-                aria-label={`Switch to ${LABELS[arrangement[0]]}`}
-              >
-                <span
-                  key={`left-${contentKey}`}
-                  className={slideDir !== "init" ? "label-from-right" : ""}
-                >
-                  {LABELS[arrangement[0]]}
-                </span>
-              </EdgeBtn>
-            </div>
-
-            {/* Center content — scrollable; inner wrapper centers content both axes */}
-            <div
-              key={contentKey}
-              className={animClass}
-              style={{ flex: 1, overflowY: "auto" }}
-            >
+              {/* Left column — slides in from center on mount */}
               <div
+                className="edge-col-left"
                 style={{
-                  minHeight: "100%",
+                  width: "150px",
+                  flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "40px 32px",
                 }}
               >
-                <div style={{ maxWidth: "900px", width: "100%" }}>
-                  {renderContent(arrangement[1])}
+                <EdgeBtn
+                  $color={textColor}
+                  onClick={handleLeftClick}
+                  aria-label={`Switch to ${LABELS[arrangement[0]]}`}
+                >
+                  <span
+                    key={`left-${contentKey}`}
+                    className={slideDir !== "init" ? "label-from-right" : ""}
+                  >
+                    {LABELS[arrangement[0]]}
+                  </span>
+                </EdgeBtn>
+              </div>
+
+              {/* Center content — scrollable; inner wrapper centers content both axes */}
+              <div
+                key={contentKey}
+                className={animClass}
+                style={{ flex: 1, overflowY: "auto" }}
+              >
+                <div
+                  style={{
+                    minHeight: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "40px 32px",
+                  }}
+                >
+                  <div style={{ maxWidth: "900px", width: "100%" }}>
+                    {renderContent(arrangement[1])}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right column — slides in from center on mount */}
-            <div
-              className="edge-col-right"
-              style={{
-                width: "150px",
-                flexShrink: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <EdgeBtn
-                $color={textColor}
-                onClick={handleRightClick}
-                aria-label={`Switch to ${LABELS[arrangement[2]]}`}
+              {/* Right column — slides in from center on mount */}
+              <div
+                className="edge-col-right"
+                style={{
+                  width: "150px",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <span
-                  key={`right-${contentKey}`}
-                  className={slideDir !== "init" ? "label-from-left" : ""}
+                <EdgeBtn
+                  $color={textColor}
+                  onClick={handleRightClick}
+                  aria-label={`Switch to ${LABELS[arrangement[2]]}`}
                 >
-                  {LABELS[arrangement[2]]}
-                </span>
-              </EdgeBtn>
+                  <span
+                    key={`right-${contentKey}`}
+                    className={slideDir !== "init" ? "label-from-left" : ""}
+                  >
+                    {LABELS[arrangement[2]]}
+                  </span>
+                </EdgeBtn>
+              </div>
             </div>
           </div>
         )}
