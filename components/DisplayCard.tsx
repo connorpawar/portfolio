@@ -12,40 +12,66 @@ export const DisplayCard = ({
   year,
   badgeText,
   badgeColor,
+  decommissioned = false,
+  compact = false,
 }) => {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
   return (
     <Box
-      as="button"
+      as={decommissioned ? "div" : "button"}
       textAlign="start"
       width="100%"
-      maxW="sm"
-      minH="xl"
+      height="100%"
+      display="flex"
+      flexDirection="column"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       shadow="sm"
       transition="0.2s"
-      _hover={{ shadow: "lg" }}
+      cursor={decommissioned ? "default" : "pointer"}
+      opacity={decommissioned ? 0.75 : 1}
+      _hover={decommissioned ? {} : { shadow: "lg" }}
       background={resolvedTheme === "light" ? "white" : "gray.900"}
-      onClick={() => router.push(url)}
+      onClick={decommissioned ? undefined : () => router.push(url)}
     >
-      <Box m="5">
+      <Box
+        m={compact ? "3" : "5"}
+        display="flex"
+        justifyContent="center"
+        flexShrink={0}
+      >
         <Image
           src={image}
           alt={imageDesc}
           objectFit="cover"
-          boxSize="300px"
+          boxSize={compact ? "100px" : "300px"}
           borderRadius="full"
         />
       </Box>
-      <Box p="6" minH="3xs">
-        <Box dir="flex" alignItems="baseline">
+      <Box
+        p={compact ? "4" : "6"}
+        flex="1"
+        display="flex"
+        flexDirection="column"
+      >
+        <Box
+          dir="flex"
+          alignItems="baseline"
+          display="flex"
+          flexWrap="wrap"
+          gap="2"
+        >
           <Badge borderRadius="full" px="4" colorScheme={badgeColor}>
             {badgeText}
           </Badge>
+          {decommissioned && (
+            <Badge borderRadius="full" px="4" colorScheme="gray">
+              Decommissioned
+            </Badge>
+          )}
           <Box
             color="gray.500"
             fontWeight="semibold"
@@ -61,13 +87,13 @@ export const DisplayCard = ({
           mt="1"
           fontWeight="semibold"
           as="h4"
-          size="lg"
+          size={compact ? "md" : "lg"}
           lineHeight="tight"
           truncate
         >
           {title}
         </Heading>
-        <Box fontSize="md">{desc}</Box>
+        <Box fontSize={compact ? "sm" : "md"}>{desc}</Box>
       </Box>
     </Box>
   );
