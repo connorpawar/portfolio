@@ -1,5 +1,337 @@
 [
   {
+    "title": "Building Yelm's Identity Layer on AT Protocol",
+    "description": "How Yelm uses AT Protocol DIDs, OAuth, and a couple of custom lexicons so a member's reading history belongs to them, not to us.",
+    "urlSlug": "at-protocol-in-yelm",
+    "pubDate": "2026-09-04",
+    "readingTime": 4,
+    "metaData": {
+      "tags": [
+        "AT Protocol",
+        "Yelm",
+        "OAuth",
+        "Decentralized Identity",
+        "Bluesky"
+      ]
+    },
+    "splashImg": {
+      "title": "AT Protocol logo",
+      "description": "AT Protocol logo (Bluesky Social PBC, CC BY 4.0)",
+      "url": "/at-protocol-logo.svg",
+      "fit": "contain"
+    },
+    "body": {
+      "nodeType": "document",
+      "data": {},
+      "content": [
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "When I started building Yelm, a video chat app for book clubs, the easy path was the one every side project takes: a Postgres table for users, a password hash, a session cookie, done. But reading progress is exactly the kind of data people actually care about keeping. Nobody wants to lose two years of \"finished\" books because a side project's server got shut down. So instead of owning that data, Yelm treats AT Protocol, the open protocol behind Bluesky, as its identity layer, and writes reading history to a server the user controls, not one I control.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "I didn't arrive at this on my own. Dan Abramov, who worked on the Bluesky client before eventually writing about the protocol itself, put the underlying idea better than I can in ",
+              "marks": [],
+              "data": {}
+            },
+            {
+              "nodeType": "hyperlink",
+              "data": {
+                "uri": "https://overreacted.io/open-social/"
+              },
+              "content": [
+                {
+                  "nodeType": "text",
+                  "value": "Open Social",
+                  "marks": [],
+                  "data": {}
+                }
+              ]
+            },
+            {
+              "nodeType": "text",
+              "value": ": once your data lives in a repo you control instead of a database an app controls, apps stop being able to hold your social graph hostage, and start having to compete on quality instead. That's the shift I wanted for Yelm's reading history specifically.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "heading-2",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Why not just use our own database?",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Because then it's mine, not theirs. AT Protocol's core idea is that your identity is a DID (did:plc:…), a permanent identifier that isn't owned by any single app. Your handle, like alice.yelm.dev, is just a human-readable pointer to that DID and can change without breaking anything. The records that matter (in Yelm's case, reading progress and finished books) live on a Personal Data Server (PDS) that belongs to the user. If someone stops using Yelm tomorrow, their reading history goes with them. Yelm's own Postgres database still exists, but it's the working store for things that have no portable representation: club memberships, votes on the next book, meeting schedules. It is deliberately not the source of truth for reading data.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "heading-2",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Signing in without a client secret",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "AT Protocol OAuth is PKCE plus DPoP (Demonstrating Proof of Possession), and there's no client secret anywhere. The client is identified by the URL of its client-metadata.json, which the PDS fetches during the flow to verify the client_id, redirect_uris, and requested scopes. The browser generates a keypair, and every token request is signed with a DPoP proof from the private key, so a stolen access token is useless without the key that minted it.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "The bigger implication for how Yelm is built: the backend never sees an AT Protocol token. The @atproto/oauth-client-browser library keeps all of that in IndexedDB, in the browser. All Yelm's server stores is the DID, handle, and PDS URL, just enough to know who someone is and where to tell the frontend to write records.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "For brand-new users, registration is entirely PDS-hosted. Clicking “Register with AT Protocol” with a blank handle redirects straight to pds.yelm.dev with an OAuth prompt: 'create' parameter, which hands the whole signup screen (handle picker, password, terms) to the PDS itself. Yelm never calls com.atproto.server.createAccount and never sees a password. That only works because pds.yelm.dev advertises \"create\" in its prompt_values_supported; not every PDS does.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "heading-2",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "What goes where",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Once someone's signed in, two lexicons carry the actual reading data: dev.yelm.readingProgress, one record per book, updated in place every time a session is logged, and dev.yelm.bookFinished, a new record each time a book is marked complete. Both are written straight from the frontend using the DPoP-bound session, with putRecord for progress and createRecord for completions.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "yelm-dev-blog"
+                  }
+                },
+                "id": "local-code-block-1",
+                "type": "Entry",
+                "createdAt": "2026-09-04T00:00:00.000Z",
+                "updatedAt": "2026-09-04T00:00:00.000Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 1,
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "dev.yelm.readingProgress record",
+                "code": "```json\n{\n  \"$type\": \"dev.yelm.readingProgress\",\n  \"bookIsbn\": \"9780141439518\",\n  \"bookTitle\": \"Great Expectations\",\n  \"bookAuthor\": \"Charles Dickens\",\n  \"currentPage\": 142,\n  \"totalPages\": 514,\n  \"updatedAt\": \"2026-07-02T14:30:00.000Z\"\n}\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "These writes are intentionally low-stakes for Yelm to get wrong: they're wrapped in .catch(console.error) so a failed PDS write never blocks the UI, and they no-op silently if a user has no active AT Protocol session. Some third-party PDSes, bsky.social included, enforce per-collection write scopes that can't be requested from a local dev client, so writes there fail quietly too, and that one cost me an afternoon of “why isn't this saving” before I found ScopeMissingError in the console.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "The relationship is deliberately one-directional: Yelm writes to the PDS but never reads back from it. The reading records that show up in the app come from Yelm's own Postgres copy; the PDS copy exists so the user's history is exportable and portable, independent of Yelm ever staying online.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "heading-2",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "A second identity, for the app itself",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Separately from any user's data, Yelm also has its own DID and PDS account, used only to publish public metadata for clubs that opt into discovery. When a club flips its visibility to public, the backend (authenticating as the app's own account, not a user's) writes a dev.yelm.club record describing the club, its member count, and its current book.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "embedded-entry-block",
+          "content": [],
+          "data": {
+            "target": {
+              "metadata": {
+                "tags": [],
+                "concepts": []
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "yelm-dev-blog"
+                  }
+                },
+                "id": "local-code-block-2",
+                "type": "Entry",
+                "createdAt": "2026-09-04T00:00:00.000Z",
+                "updatedAt": "2026-09-04T00:00:00.000Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "publishedVersion": 1,
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "codeBlock"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "title": "dev.yelm.club record",
+                "code": "```json\n{\n  \"$type\": \"dev.yelm.club\",\n  \"clubId\": \"3f8a2b1c-…\",\n  \"name\": \"Sunday Sci-Fi\",\n  \"description\": \"Monthly sci-fi picks, casual pace.\",\n  \"memberCount\": 12,\n  \"currentBook\": {\n    \"title\": \"Great Expectations\",\n    \"author\": \"Charles Dickens\",\n    \"isbn\": \"9780141439518\"\n  },\n  \"joinUrl\": \"https://yelm.dev/join/AB12CD\",\n  \"publishedAt\": \"2026-07-02T14:30:00.000Z\"\n}\n```"
+              }
+            }
+          }
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "Unlike reading records, this data isn't portable in any meaningful sense; it exists purely so other AT Protocol apps, Bluesky clients included, can discover public Yelm clubs. Yelm's own IsPublic flag in Postgres is still the source of truth; the PDS record is just a mirror that gets deleted the moment a club goes private again.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        },
+        {
+          "nodeType": "paragraph",
+          "content": [
+            {
+              "nodeType": "text",
+              "value": "The payoff is that Yelm's reading history isn't really Yelm's. It's the user's, sitting on infrastructure they can move, export, or point somewhere else entirely, and that's a much better trade than I expected when I started reading the AT Protocol spec.",
+              "marks": [],
+              "data": {}
+            }
+          ],
+          "data": {}
+        }
+      ]
+    }
+  },
+  {
     "title": "How To Use Currying to Your Advantage When Unit Testing React Hooks",
     "description": "Applying functional programming ideas such as currying to your Jest testing can make things a lot easier on you when writing tests for React hooks.  ",
     "urlSlug": "currying-for-unit-testing",

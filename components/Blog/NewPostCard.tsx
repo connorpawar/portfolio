@@ -33,7 +33,9 @@ export const NewPostCard = ({
       textAlign="start"
       width="100%"
       maxW="sm"
-      minH="xl"
+      height="420px"
+      display="flex"
+      flexDirection="column"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -45,13 +47,29 @@ export const NewPostCard = ({
         onSelect ? onSelect(post) : router.push(`blog/post/${url}`)
       }
     >
-      <img
-        src={`https:${image.url}`}
-        alt={image.description}
-        style={{ maxWidth: "100%", display: "block" }}
-      />
+      <Box
+        height="180px"
+        flexShrink={0}
+        overflow="hidden"
+        background={image.fit === "contain" ? "white" : undefined}
+        display={image.fit === "contain" ? "flex" : undefined}
+        alignItems={image.fit === "contain" ? "center" : undefined}
+        justifyContent={image.fit === "contain" ? "center" : undefined}
+        p={image.fit === "contain" ? "8" : undefined}
+      >
+        <img
+          src={image.url.startsWith("//") ? `https:${image.url}` : image.url}
+          alt={image.description}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: image.fit === "contain" ? "contain" : "cover",
+            display: "block",
+          }}
+        />
+      </Box>
 
-      <Box p="6" minH="3xs">
+      <Box p="6" flex="1" overflow="hidden">
         <Box dir="flex" alignItems="baseline">
           <Badge borderRadius="full" px="2" colorScheme="green">
             New
@@ -81,7 +99,9 @@ export const NewPostCard = ({
         >
           {title}
         </Heading>
-        <Box>{desc}</Box>
+        <Box mt="2" lineClamp={3}>
+          {desc}
+        </Box>
       </Box>
     </Box>
   );

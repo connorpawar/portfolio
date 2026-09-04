@@ -3,10 +3,13 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import React from "react";
 import { Text, Heading } from "@chakra-ui/react";
 
-import { BlockQuote, CodeSnippet } from "../components/TextStlying";
+import { BlockQuote, CodeSnippet, Link } from "../components/TextStlying";
 
 const richTextOptions = {
   renderNode: {
+    [INLINES.HYPERLINK]: (node, children) => {
+      return <Link url={node.data.uri}>{children}</Link>;
+    },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { title, description, file } = node.data.target.fields;
       const mimeType = file.contentType;
